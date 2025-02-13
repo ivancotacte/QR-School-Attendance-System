@@ -24,7 +24,7 @@ const GenerateQRCode = () => {
             <section className="h-[93vh] md:h-screen lg:pt-6 md:pt-14 pt-11 flex flex-col gap-3 justify-center items-center md:p-6 py-2 px-3 overflow-hidden">
                 <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-md w-11/12 max-w-md">
                     <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100 text-center">Generate QR Code</h2>
-                    <div className="mb-5">
+                    <div className="mb-4">
                         <label htmlFor="idOrLRN" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID or LRN Number</label>
                         <input
                             type="text"
@@ -37,7 +37,7 @@ const GenerateQRCode = () => {
                             required
                         />
                     </div>
-                    <div className="mb-5">
+                    <div className="mb-4">
                         <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
                         <input
                             type="text"
@@ -50,7 +50,7 @@ const GenerateQRCode = () => {
                             required
                         />
                     </div>
-                    <div className="mb-5">
+                    <div className="mb-4">
                         <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
                         <input
                             type="text"
@@ -63,7 +63,7 @@ const GenerateQRCode = () => {
                             required
                         />
                     </div>
-                    <div className="mb-5">
+                    <div className="mb-4">
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input
                             type="email"
