@@ -9,7 +9,6 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // ...handle login logic...
         console.log('Logging into School Portal with credentials:', credentials);
     };
 

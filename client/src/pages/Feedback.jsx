@@ -1,12 +1,8 @@
-
-
 // eslint-disable-next-line react/prop-types
 const Feedback = ({ closeModal }) => {
   return (
     <>
-      {/* Modal Overlay */}
       <div className="fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity" onClick={closeModal}></div>
-      {/* Modal Container */}
       <div className="fixed inset-0 z-50 flex justify-center items-center">
         <form className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-md w-11/12 max-w-md">
           <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100 text-center">
