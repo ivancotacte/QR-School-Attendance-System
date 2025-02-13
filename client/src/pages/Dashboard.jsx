@@ -1,10 +1,22 @@
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import Feedback from "./Feedback";
 
 const Dashboard = () => {
     const navigate = useNavigate();
+    const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
     const handleFeedback = () => {
-        navigate("/feedback");
+        setShowFeedbackModal(true);
     };
+
+    const handleProfile = () => {
+        navigate("/profile");
+    };
+
+    const closeModal = () => {
+        setShowFeedbackModal(false);
+    }
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">
@@ -18,7 +30,7 @@ const Dashboard = () => {
                         </span>
                     </div>
                     <div className="grid grid-cols-2 md:gap-4 gap-3">
-                        <button className="flex flex-col items-start border border-gray-300 dark:border-gray-700 md:p-3 p-2 rounded-2xl group text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <button onClick={handleProfile} className="flex flex-col items-start border border-gray-300 dark:border-gray-700 md:p-3 p-2 rounded-2xl group text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                             <div className="flex justify-between items-start w-full">
                                 <div className="md:size-12 size-11 flex items-center justify-center border dark:border-neutral-700 rounded-xl md:mb-3 mb-2 bg-white dark:bg-neutral-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="md:size-8 size-7 text-gray-900 dark:text-white">
@@ -81,6 +93,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </section>
+            {showFeedbackModal && <Feedback closeModal={closeModal} />}
         </div>
     );
 };
