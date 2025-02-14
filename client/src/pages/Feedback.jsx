@@ -1,8 +1,12 @@
+
 // eslint-disable-next-line react/prop-types
 const Feedback = ({ closeModal }) => {
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity" onClick={closeModal}></div>
+      <div
+        className="fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity"
+        onClick={closeModal}
+      />
       <div className="fixed inset-0 z-50 flex justify-center items-center">
         <form className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-md w-11/12 max-w-md">
           <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100 text-center">
@@ -15,7 +19,7 @@ const Feedback = ({ closeModal }) => {
             <textarea
               className="w-full p-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-neutral-200 dark:placeholder-gray-400"
               placeholder="Enter your feedback here..."
-            ></textarea>
+            />
           </div>
           <div className="mb-4">
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
