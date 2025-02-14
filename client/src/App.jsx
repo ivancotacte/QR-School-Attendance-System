@@ -5,6 +5,7 @@ import Feedback from './pages/Feedback';
 import Profile from './pages/Profile';
 import GenerateQRCode from './pages/GenerateQRCode';
 import ClassPage from './pages/ClassPage';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/generate-qr" element={<GenerateQRCode />} />
       <Route path="/class" element={<ClassPage />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 }
