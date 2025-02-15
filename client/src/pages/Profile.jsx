@@ -1,6 +1,13 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 const Profile = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = "Profile";
+    }, []);
+
     return (
         <div className="bg-gray-100 dark:bg-gray-900">
             <section className="h-[93vh] md:h-screen lg:pt-6 md:pt-14 pt-11 flex flex-col gap-3 justify-center items-center md:p-6 py-2 px-3 overflow-hidden">

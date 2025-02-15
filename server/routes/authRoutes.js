@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcryptjs';
 import moment from 'moment-timezone';
-import { generateToken } from '../middleware/authMiddleware.js';
+import { generateToken, verifyToken } from '../middleware/authMiddleware.js';
 import { writeData, readData, deleteData, updateData, refreshData } from '../database/mongoConnection.js';
 const router = Router();
 
@@ -72,6 +72,10 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ status: "failed", message: "Something went wrong" });
         refreshData();
     }
+});
+
+router.get('/verify', verifyToken, (req, res) => {
+    res.status(200).json({ status: "success", message: "Token is valid", userId: req.userId });
 });
 
 export default router;

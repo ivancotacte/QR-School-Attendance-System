@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const GenerateQRCode = () => {
@@ -18,6 +18,10 @@ const GenerateQRCode = () => {
         e.preventDefault();
         console.log('Generating QR Code with data:', formData);
     };
+
+    useEffect(() => {
+        document.title = 'Generate QR Code | Student Information System';
+    }, []);
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">

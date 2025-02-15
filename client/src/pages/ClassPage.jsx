@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ClassPage = () => {
@@ -18,6 +18,10 @@ const ClassPage = () => {
         e.preventDefault();
         console.log('Creating class with details:', classInfo);
     };
+
+    useEffect(() => {
+        document.title = 'Create Class - QR School Attendance System';
+    }, []);
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">

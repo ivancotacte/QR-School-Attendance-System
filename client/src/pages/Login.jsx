@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -26,6 +26,10 @@ const Login = () => {
             localStorage.removeItem("token");
         }
     };
+
+    useEffect(() => {
+        document.title = 'Login - QR School Attendance System';
+    }, []);
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -18,6 +18,10 @@ const Register = () => {
         console.log('Registering new account with details:', credentials);
         navigate('/login');
     };
+
+    useEffect(() => {
+        document.title = "Register";
+    }, []);
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">
