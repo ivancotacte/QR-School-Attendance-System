@@ -13,6 +13,8 @@ export default defineConfig({
       '/api': {
         target: ['http://localhost:5000', "https://qr-school-server.vercel.app"],
         changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     },
     port: 3000,
