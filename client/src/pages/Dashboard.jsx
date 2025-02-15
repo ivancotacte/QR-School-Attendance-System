@@ -25,6 +25,25 @@ const Dashboard = () => {
 
     useEffect(() => {
         document.title = "Dashboard - QR School Attendance System";
+        const token = localStorage.getItem("token");
+        const fetchData = async () => {
+            const response = await fetch("/api/v1/user", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            return data;
+        };
+        fetchData().then(data => {
+            if (data.status === "failed") {
+                localStorage.removeItem("token");
+                navigate("/login");
+            } else {
+                console.log(data);
+            }
+        });
     }, [navigate]);
 
     return (

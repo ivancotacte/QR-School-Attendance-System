@@ -1,33 +1,27 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App";
+import Login from "../pages/Login";
+import Dashboard from "../pages/Dashboard";
 import Feedback from "../pages/Feedback";
 import Profile from "../pages/Profile";
+import GenerateQRCode from "../pages/GenerateQRCode";
+import ClassPage from "../pages/ClassPage";
+import Register from "../pages/Register";
 
-const Routes = () => {
-    const routesForPublic = [
-        {
-            path: "/feedback",
-            element: <Feedback />
-        }
-    ];
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <App />,
+		children: [
+			{ path: "login", element: <Login /> },
+			{ path: "dashboard", element: <Dashboard /> },
+			{ path: "feedback", element: <Feedback /> },
+			{ path: "profile", element: <Profile /> },
+			{ path: "generate-qr", element: <GenerateQRCode /> },
+			{ path: "class", element: <ClassPage /> },
+			{ path: "register", element: <Register /> }
+		]
+	}
+]);
 
-    const routesForAuth = [
-        {
-            path: "/",
-            children: [
-                {
-                    path: "/profile",
-                    element: <Profile />
-                }
-            ]
-        }
-    ];
-
-    const router = createBrowserRouter([
-        ...routesForPublic,
-        ...routesForAuth
-    ]);
-
-    return <RouterProvider router={router} />;
-}
-
-export default Routes;
+export default router;
