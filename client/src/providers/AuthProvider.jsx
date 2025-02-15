@@ -8,30 +8,31 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Renaming local variable to avoid conflict
-        const localToken = localStorage.getItem("token");
-        if (localToken) {
-            fetch("/api/v1/auth/verify", {
-                headers: { Authorization: `Bearer ${localToken}` }
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "success") {
-                    // Optionally set token from data if needed, here we re-use localToken
-                    setToken(localToken);
-                } else {
+        const verifyToken = async () => {
+            const localToken = localStorage.getItem("token");
+            if (localToken) {
+                try {
+                    const res = await fetch("/api/v1/auth/verify", {
+                        headers: { Authorization: `Bearer ${localToken}` }
+                    });
+                    const data = await res.json();
+                    if (data.status === "success") {
+                        setToken(localToken);
+                    } else {
+                        localStorage.removeItem("token");
+                        setToken(null);
+                    }
+                } catch (error) {
                     localStorage.removeItem("token");
                     setToken(null);
+                } finally {
+                    setLoading(false);
                 }
-            })
-            .catch(() => {
-                localStorage.removeItem("token");
-                setToken(null);
-            })
-            .finally(() => setLoading(false));
-        } else {
-            setLoading(false);
-        }
+            } else {
+                setLoading(false);
+            }
+        };
+        verifyToken();
     }, []);
 
     const login = (newToken) => {

@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Feedback from "./Feedback";
 import Navbar from '../components/Navbar';
+import { useAuth } from "../providers/AuthProvider";
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [user, setUser] = useState(null);
+    const { token } = useAuth();
 
     const handleFeedback = () => {
         setShowFeedbackModal(true);
@@ -26,7 +28,7 @@ const Dashboard = () => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Authorization: `Bearer ${token}`,
             },
         })
             .then((res) => res.json())
@@ -35,7 +37,7 @@ const Dashboard = () => {
                     setUser(data);
                 }
         })
-    }, []);
+    }, [token]);
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">
