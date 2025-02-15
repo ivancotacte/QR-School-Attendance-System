@@ -1,10 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import { AuthProvider } from './providers/AuthProvider';
+import Routes from './routes/index';
 
 function App() {
   return (
-    <>
-      <Outlet />
-    </>
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }
 

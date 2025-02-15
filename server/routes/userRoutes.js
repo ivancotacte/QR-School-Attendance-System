@@ -15,7 +15,16 @@ router.get("/", verifyToken, async (req, res) => {
     const users = await readData("users");
     const user = users.find((user) => user.userId === req.userId);
 
-    res.status(200).json({ status: "success", user });
+    res.status(200).json({ 
+        status: "success", 
+        data: {
+            userId: user.userId,
+            firstName: user.data.firstName,
+            lastName: user.data.lastName,
+            email: user.email,
+            banned: user.banned,
+        } 
+    });
 });
 
 export default router;

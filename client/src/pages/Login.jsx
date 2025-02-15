@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../providers/AuthProvider";
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -21,7 +23,8 @@ const Login = () => {
         const data = await response.json();
         if (data.status === 'success') {
             localStorage.setItem('token', data.token);
-            navigate('/dashboard');
+            login(data.token);
+            navigate('/dashboard', { replace: true });
         } else {
             localStorage.removeItem("token");
         }

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 import moment from "moment-timezone";
-import { generateToken } from "../middleware/authMiddleware.js";
+import { generateToken, verifyToken } from "../middleware/authMiddleware.js";
 import {
   writeData,
   readData,
@@ -120,6 +120,13 @@ router.get("/logout", (req, res) => {
   res
     .status(200)
     .json({ status: "success", message: "User logged out successfully" });
+});
+
+router.get("/verify", verifyToken, async (req, res) => {
+  const users = await readData("users");
+  const user = users.find((user) => user.userId === req.userId);
+
+  res.status(200).json({ status: "success", user });
 });
 
 export default router;
