@@ -13,7 +13,7 @@ export default defineConfig({
       '/api': {
         target: "https://qr-school-server.vercel.app",
         changeOrigin: true,
-        secure: false,
+        secure: true,
       }
     },
     port: 3000,
