@@ -19,7 +19,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/v1", routes);
-app.get("/", (req, res) => {});
+app.get("/", (req, res) => {
+  res.status(200).send("Hello World");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
