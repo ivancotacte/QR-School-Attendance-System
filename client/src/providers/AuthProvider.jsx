@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
             const localToken = localStorage.getItem("token");
             if (localToken) {
                 try {
-                    const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/v1/auth/verify", {
+                    const res = await fetch("/api/v1/auth/verify", {
                         headers: { Authorization: `Bearer ${localToken}` }
                     });
                     const data = await res.json();
