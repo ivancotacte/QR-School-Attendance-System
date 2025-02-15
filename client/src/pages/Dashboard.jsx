@@ -24,7 +24,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         document.title = "Dashboard - QR School Attendance System";
-        fetch("/api/v1/user/", {
+        fetch(import.meta.env.VITE_BACKEND_URL + "/api/v1/user/", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

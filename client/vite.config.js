@@ -9,12 +9,6 @@ export default defineConfig({
     tailwindcss()
   ],
   server: {
-    proxy: {
-      '/api': {
-        target: ['http://localhost:5000', "https://qr-school-server.vercel.app"],
-        changeOrigin: true,
-      }
-    },
     port: 3000,
   }
 })
