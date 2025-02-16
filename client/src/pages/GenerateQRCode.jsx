@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import QRCode from 'qrcode'
 
 const GenerateQRCode = () => {
     const navigate = useNavigate();
@@ -16,12 +17,36 @@ const GenerateQRCode = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Generating QR Code with data:', formData);
+        GenerateQRCode();
     };
 
     useEffect(() => {
         document.title = 'Generate QR Code | Student Information System';
     }, []);
+
+    const GenerateQRCode = () => {
+        QRCode.toDataURL(formData.idOrLRN + "|" + formData.firstName + "|" + formData.lastName + "|" + formData.email, { 
+            width: 500,
+        }, (err, url) => {
+            if(err) return console.error(err);
+            handleDownload(url);
+            setFormData({
+                idOrLRN: '',
+                firstName: '',
+                lastName: '',
+                email: ''
+            });
+        })
+    };
+
+    const handleDownload = (url) => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = formData.firstName + " " + formData.lastName + '.jpg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    };
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">
@@ -88,7 +113,7 @@ const GenerateQRCode = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate("/dashboard")}
+                        onClick={() => navigate(-1)}
                         className="mt-3 w-full bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white py-2 rounded-lg text-sm hover:bg-gray-400 dark:hover:bg-gray-600"
                     >
                         Back

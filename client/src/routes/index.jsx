@@ -1,6 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRoute";
-import { useAuth } from "../providers/AuthProvider";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import Feedback from "../pages/Feedback";
@@ -9,9 +8,10 @@ import Profile from "../pages/Profile";
 import GenerateQRCode from "../pages/GenerateQRCode";
 import ClassPage from "../pages/ClassPage";
 import Register from "../pages/Register";
+import RedirectAuth from "./RedirectAuth";
 
 const Routes = () => {
-	const { token } = useAuth();
+	// Removed local token destructuring since RedirectAuth handles it internally
 
     const routesForPublic = [
         {
@@ -56,18 +56,18 @@ const Routes = () => {
 	const routesForNonAuth = [
 		{
 			path: "/",
-			element: <Login />
+			element: <RedirectAuth><Login /></RedirectAuth>
 		},
 		{
 			path: "/login",
-			element: <Login />
+			element: <RedirectAuth><Login /></RedirectAuth>
 		},
 	];
 
     const router = createBrowserRouter([
         ...routesForPublic,
         ...routesForAuth,
-		...(!token ? routesForNonAuth : []),
+		...routesForNonAuth,
     ]);
 
 	return <RouterProvider router={router} />;

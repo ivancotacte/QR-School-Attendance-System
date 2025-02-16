@@ -6,8 +6,6 @@ import { generateToken, verifyToken } from "../middleware/authMiddleware.js";
 import {
   writeData,
   readData,
-  deleteData,
-  updateData,
   refreshData,
 } from "../database/mongoConnection.js";
 const router = Router();
@@ -22,6 +20,10 @@ router.post("/register", async (req, res) => {
       .json({ status: "failed", message: "Please enter all fields" });
   }
 
+  // Format names: capitalize first letter, rest lowercase
+  const formattedFirstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
+  const formattedLastName = lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
+
   try {
     const users = await readData("users");
     const emailExists = users.some((user) => user.email === email);
@@ -35,7 +37,7 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const userData = {
       userId: uuidv4(),
-      data: { firstName, lastName },
+      data: { firstName: formattedFirstName, lastName: formattedLastName },
       email,
       password: hashedPassword,
       banned: false,

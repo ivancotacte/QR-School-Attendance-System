@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../providers/AuthProvider';
 
 const ClassPage = () => {
     const navigate = useNavigate();
+    const { token } = useAuth();
     const [classInfo, setClassInfo] = useState({
         className: '',
         section: '',
@@ -16,7 +18,23 @@ const ClassPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Creating class with details:', classInfo);
+        fetch(import.meta.env.VITE_BACKEND_URL + '/api/v1/classes/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(classInfo)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                navigate('/dashboard');  
+            } else {
+                alert(data.message);
+            }
+        });
+
     };
 
     useEffect(() => {

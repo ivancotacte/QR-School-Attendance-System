@@ -59,10 +59,11 @@ async function updateData(collectionName, query, update) {
   }
 }
 
-async function refreshData(collectionName) {
+async function refreshData() {
   try {
-    const db = client.db(process.env.MONGO_DB_NAME);
-    const collection = db.collection(collectionName);
+    await readData("users");
+    await readData("classes");
+    await readData("feedbacks");
   } catch (error) {
     console.error("Error refreshing data", error);
   }

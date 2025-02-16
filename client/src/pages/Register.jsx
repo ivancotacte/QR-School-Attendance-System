@@ -15,8 +15,22 @@ const Register = () => {
             alert("Passwords do not match");
             return;
         }
-        console.log('Registering new account with details:', credentials);
-        navigate('/login');
+        fetch(import.meta.env.VITE_BACKEND_URL + '/api/v1/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    navigate('/login', { replace: true });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+        });
     };
 
     useEffect(() => {

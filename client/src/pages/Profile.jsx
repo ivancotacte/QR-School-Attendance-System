@@ -1,12 +1,36 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
+import { useAuth } from '../providers/AuthProvider';
 
 const Profile = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const { token } = useAuth();
 
     useEffect(() => {
         document.title = "Profile";
-    }, []);
+        const fetchData = async () => {
+            try {
+                const response = await fetch(
+                    import.meta.env.VITE_BACKEND_URL + `/api/v1/user`, {
+                        method: 'GET',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    }
+                );
+                const data = await response.json();
+                setUser(data);
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchData();
+    }, [token]);
+
+    if (isLoading) return <Loading />;
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">
@@ -24,9 +48,9 @@ const Profile = () => {
                                 <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
                                     First Name
                                 </label>
-                                <input 
-                                    type="text" 
-                                    placeholder="Enter first name" 
+                                <input
+                                    type="text"
+                                    placeholder={user?.data.firstName || "First Name"}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 />
                             </div>
@@ -36,7 +60,7 @@ const Profile = () => {
                                 </label>
                                 <input 
                                     type="text" 
-                                    placeholder="Enter last name" 
+                                    placeholder={user?.data.lastName || "Enter last name"}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 />
                             </div>
@@ -56,7 +80,7 @@ const Profile = () => {
                                 </label>
                                 <input 
                                     type="email" 
-                                    placeholder="Enter email" 
+                                    placeholder={user?.data.email || "Enter email"}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 />
                             </div>
@@ -69,13 +93,12 @@ const Profile = () => {
                                 Submit
                             </button>
                             <button
-                        type="button"
-                        onClick={() => navigate("/dashboard")}
-                        className="mt-3 w-full bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white py-2 rounded-lg text-sm hover:bg-gray-400 dark:hover:bg-gray-600"
-                    >
-                        Back
-                    </button>
-
+                                type="button"
+                                onClick={() => navigate("/dashboard")}
+                                className="mt-3 w-full bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white py-2 rounded-lg text-sm hover:bg-gray-400 dark:hover:bg-gray-600"
+                            >
+                                Back
+                            </button>
                         </div>
                     </form>
                 </div>

@@ -1,26 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import Feedback from "./Feedback";
 import Navbar from '../components/Navbar';
 import { useAuth } from "../providers/AuthProvider";
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const { token } = useAuth();
 
     const handleFeedback = () => {
-        setShowFeedbackModal(true);
+        navigate("/feedback");
     };
 
     const handleProfile = () => {
         navigate("/profile");
-    };
-
-    const closeModal = () => {
-        setShowFeedbackModal(false);
     };
 
     useEffect(() => {
@@ -35,6 +29,10 @@ const Dashboard = () => {
                 setUser(data);
                 setIsLoading(false);
             })
+            .catch((error) => {
+                console.error('Error:', error);
+                setIsLoading(false);
+            });
         };
         fetchData();
     }, [token]);
@@ -122,7 +120,6 @@ const Dashboard = () => {
                     </div>
                 </div>
             </section>
-            {showFeedbackModal && <Feedback closeModal={closeModal} />}
         </div>
     );
 };
