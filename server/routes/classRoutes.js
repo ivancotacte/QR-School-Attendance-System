@@ -34,4 +34,18 @@ router.post('/create', verifyToken, async (req, res) => {
     }
 });
 
+router.get('/view' , verifyToken, async (req, res) => {
+    try {
+        const classes = await readData("classes");
+        const users = await readData("users");
+        const user = users.find((user) => user.userId === req.userId);
+
+        const userClasses = classes.filter((classData) => classData.userId === user.userId);
+        res.status(200).json({ status: 'success', data: userClasses });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: 'failed', message: 'Something went wrong' });
+    }
+});
+
 export default router;

@@ -48,7 +48,7 @@ const Dashboard = () => {
     return (
         <div className="bg-gray-100 dark:bg-gray-900">
             <Navbar />
-            <section className="h-[93vh] md:h-screen lg:pt-6 md:pt-14 pt-11 flex flex-col gap-3 justify-center items-center md:p-6 py-2 px-3 overflow-hidden">
+            <section className="h-[93vh] md:h-screen lg:pt-6 md:pt-14 pt-11 flex flex-col gap-3 justify-center items-center md:p-6 py-2 px-3 overflow-y-auto">
                 <div className="relative flex flex-col justify-center w-full max-w-3xl md:h-[98%] h-[95%] md:p-4 p-3">
                     <div className="flex flex-col leading-none mb-6">
                         <h1 className="text-gray-800 dark:text-white">
@@ -85,7 +85,7 @@ const Dashboard = () => {
                                 Provide feedback or report an issue.
                             </span>
                         </button>
-                        <button onClick={() => navigate("/class")} className="flex flex-col items-start border border-gray-300 dark:border-gray-700 md:p-3 p-2 rounded-2xl group text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <button onClick={() => navigate("/classes/create")} className="flex flex-col items-start border border-gray-300 dark:border-gray-700 md:p-3 p-2 rounded-2xl group text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                             <div className="flex flex-col justify-between">
                                 <div className="md:size-12 size-11 flex items-center justify-center border dark:border-neutral-700 rounded-xl md:mb-3 mb-2 bg-white dark:bg-neutral-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="md:size-8 size-7 text-gray-900 dark:text-white">
@@ -93,9 +93,22 @@ const Dashboard = () => {
                                     </svg>
                                 </div>
                             </div>
-                            Class
+                            Add Class
                             <span className="text-gray-600 dark:text-gray-200 md:text-sm text-xs leading-4 text-start">
-                                Schedule new classes or meetings.
+                                Schedule a new class or meeting.
+                            </span>
+                        </button>
+                        <button onClick={() => navigate("/classes/view")} className="flex flex-col items-start border border-gray-300 dark:border-gray-700 md:p-3 p-2 rounded-2xl group text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
+                            <div className="flex flex-col justify-between">
+                                <div className="md:size-12 size-11 flex items-center justify-center border dark:border-neutral-700 rounded-xl md:mb-3 mb-2 bg-white dark:bg-neutral-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="md:size-8 size-7 text-gray-900 dark:text-white">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M3 6h18M3 14h18M3 18h18" />
+                                    </svg>
+                                </div>
+                            </div>
+                            View Classes
+                            <span className="text-gray-600 dark:text-gray-200 md:text-sm text-xs leading-4 text-start">
+                                See your scheduled classes.
                             </span>
                         </button>
                         <button onClick={() => navigate("/generate-qr")} className="flex flex-col items-start border border-gray-300 dark:border-gray-700 md:p-3 p-2 rounded-2xl group text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
@@ -111,12 +124,21 @@ const Dashboard = () => {
                                 Generate a new QR code for attendance.
                             </span>
                         </button>
-                    </div>
-                    <div className="text-neutral-700 dark:text-neutral-200 flex flex-col text-center md:mt-7 mt-5 transition-color">
-                        More to Come!
-                        <span className="text-neutral-500 dark:text-neutral-400 md:text-sm text-xs leading-4">
-                            New features are on the way! We are building<br /> something amazing just for you.
-                        </span>
+                        {/* New Scan QR button */}
+                        <button onClick={() => navigate("/scan-qr")} className="flex flex-col items-start border border-gray-300 dark:border-gray-700 md:p-3 p-2 rounded-2xl group text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
+                            <div className="flex flex-col justify-between">
+                                <div className="md:size-12 size-11 flex items-center justify-center border dark:border-neutral-700 rounded-xl md:mb-3 mb-2 bg-white dark:bg-neutral-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="md:size-8 size-7 text-gray-900 dark:text-white">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M11 4a7 7 0 100 14 7 7 0 000-14z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35" />
+                                    </svg>
+                                </div>
+                            </div>
+                            Scan QR
+                            <span className="text-gray-600 dark:text-gray-200 md:text-sm text-xs leading-4 text-start">
+                                Scan QR code for attendance.
+                            </span>
+                        </button>
                     </div>
                 </div>
             </section>

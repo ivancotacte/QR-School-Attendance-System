@@ -10,10 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.10.5",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@tailwindcss/vite": "^4.0.6",
+    "@yudiel/react-qr-scanner": "^2.2.1",
     "axios": "^1.7.9",
     "framer-motion": "^12.4.3",
     "qrcode": "^1.5.4",
