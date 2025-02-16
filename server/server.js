@@ -7,10 +7,10 @@ import { connectMongoDB } from "./database/mongoConnection.js";
 
 connectMongoDB();
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 const corsOptions = {
-  origin: [ process.env.FRONTEND_URL ],
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 };
 app.use(cors(corsOptions));

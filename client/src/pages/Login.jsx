@@ -13,20 +13,29 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('/api/v1/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        });
-        const data = await response.json();
-        if (data.status === 'success') {
-            localStorage.setItem('token', data.token);
-            login(data.token);
-            navigate('/dashboard', { replace: true });
-        } else {
+        try {
+            const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/api/v1/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            if (data.status === 'success') {
+                localStorage.setItem('token', data.token);
+                login(data.token);
+                navigate('/dashboard', { replace: true });
+            } else {
+                localStorage.removeItem("token");
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
             localStorage.removeItem("token");
+            // Optionally, add code to display an error message to the user
         }
     };
 
