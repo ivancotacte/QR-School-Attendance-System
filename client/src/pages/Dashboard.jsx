@@ -8,6 +8,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [user, setUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const { token } = useAuth();
 
     const handleFeedback = () => {
@@ -24,20 +25,27 @@ const Dashboard = () => {
 
     useEffect(() => {
         document.title = "Dashboard - QR School Attendance System";
-        fetch(import.meta.env.VITE_BACKEND_URL + "/api/v1/user/", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.status === "success") {
-                    setUser(data);
-                }
-        })
+        const fetchData = async () => {
+            fetch(import.meta.env.VITE_BACKEND_URL + `/api/v1/user`, {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(response => response.json())
+            .then(data => {
+                setUser(data);
+                setIsLoading(false);
+            })
+        };
+        fetchData();
     }, [token]);
+
+    if (isLoading) {
+        return (
+            <div className="bg-gray-100 dark:bg-gray-900 flex h-screen items-center justify-center">
+                <p className='text-gray-800 dark:text-white'>Loading...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900">

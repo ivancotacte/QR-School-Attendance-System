@@ -32,10 +32,9 @@ const Login = () => {
             } else {
                 localStorage.removeItem("token");
             }
+        // eslint-disable-next-line no-unused-vars
         } catch (error) {
-            console.error('Fetch error:', error);
             localStorage.removeItem("token");
-            // Optionally, add code to display an error message to the user
         }
     };
 
