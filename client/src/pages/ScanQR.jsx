@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../providers/AuthProvider';
 import Loading from '../components/Loading';
+import { useNavigate } from 'react-router-dom';
 import { Scanner } from '@yudiel/react-qr-scanner';
 
 const ScanQR = () => {
     const { token } = useAuth();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [classes, setClasses] = useState([]);
     const [SelectedClass, setSelectedClass] = useState(null);
@@ -27,7 +29,11 @@ const ScanQR = () => {
     }; 
 
     const handleScanQR = (data) => {
-        console.log(data);
+        fetch(import.meta.env.VITE_BACKEND_URL + '/api/v1/qrcode/attendance/mark', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ data, classId: SelectedClass }) 
+        });
     };
 
     if (isLoading) return <Loading />;
@@ -53,6 +59,7 @@ const ScanQR = () => {
                                 <Scanner onScan={handleScanQR} scanDelay="2000" allowMultiple="true" />
                                 <button
                                     className="w-full bg-blue-600 text-white py-2 rounded-lg text-sm hover:bg-blue-700"
+                                    onClick={() => navigate(-1)}
                                 >
                                     Back
                                 </button>
@@ -84,6 +91,7 @@ const ScanQR = () => {
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" className="px-6 py-3">Class Name</th>
+                                    <th scope="col" className="px-6 py-3">Course</th>
                                     <th scope="col" className="px-6 py-3">Section</th>
                                     <th scope="col" className="px-6 py-3">Schedule</th>
                                     <th scope="col" className="px-6 py-3">Action</th>
@@ -95,6 +103,7 @@ const ScanQR = () => {
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {item.data.className}
                                         </th>
+                                        <td className="px-6 py-4">{item.data.course}</td>
                                         <td className="px-6 py-4">{item.data.section}</td>
                                         <td className="px-6 py-4">{item.data.schedule}</td>
                                         <td className="px-6 py-4">

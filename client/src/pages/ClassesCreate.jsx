@@ -8,10 +8,10 @@ const ClassesCreate = () => {
     const { token } = useAuth();
     const [classInfo, setClassInfo] = useState({
         className: '',
+        course: '',
         section: '',
         scheduleStart: '',
         scheduleEnd: '',
-        description: ''
     });
 
     const handleChange = (e) => {
@@ -58,6 +58,12 @@ const ClassesCreate = () => {
                                placeholder="Enter class name" required />
                     </div>
                     <div className="mb-4">
+                        <label htmlFor="course" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course</label>
+                        <input type="text" id="course" name="course" value={classInfo.course} onChange={handleChange}
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                               placeholder="Enter course" required />
+                    </div>
+                    <div className="mb-4">
                         <label htmlFor="section" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Section</label>
                         <input type="text" id="section" name="section" value={classInfo.section} onChange={handleChange}
                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -72,12 +78,6 @@ const ClassesCreate = () => {
                             <input type="time" name="scheduleEnd" value={classInfo.scheduleEnd} onChange={handleChange}
                                    className="w-full p-2 border border-gray-300 text-gray-900 text-sm rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" required />
                         </div>
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description (Optional)</label>
-                        <textarea id="description" name="description" value={classInfo.description} onChange={handleChange}
-                                  placeholder="Enter class description" className="w-full p-2 border border-gray-300 text-gray-900 text-sm rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                  rows="3" required></textarea>
                     </div>
                     <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg text-sm hover:bg-blue-700">
                         Create Class

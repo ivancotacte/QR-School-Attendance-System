@@ -7,9 +7,9 @@ const router = Router();
 const currentTime = moment().tz("Asia/Manila").format("YYYY-MM-DD-HH:mm:ss");
 
 router.post('/create', verifyToken, async (req, res) => {
-    const { className, section, schedule, description } = req.body;
+    const { className, course, section, schedule } = req.body;
 
-    if (!className || !section || !schedule || !description) {
+    if (!className || !course || !section || !schedule) {
         return res.status(400).json({ status: 'failed', message: 'Please enter all fields' });
     }
 
@@ -19,7 +19,7 @@ router.post('/create', verifyToken, async (req, res) => {
 
         const classData = {
             classId: uuidv4(),
-            data: { className, section, schedule, description },
+            data: { className, course, section, schedule },
             userId: user.userId,
             created_at: currentTime,
         };

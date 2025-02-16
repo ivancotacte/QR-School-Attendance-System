@@ -46,9 +46,9 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="bg-gray-100 dark:bg-gray-900">
+        <div className="pages">
             <Navbar />
-            <section className="h-[93vh] md:h-screen lg:pt-6 md:pt-14 pt-11 flex flex-col gap-3 justify-center items-center md:p-6 py-2 px-3 overflow-y-auto">
+            <section className="bg-gray-100 dark:bg-gray-900 flex flex-col gap-3 justify-center items-center md:p-6 py-2 px-3 overflow-y-auto">
                 <div className="relative flex flex-col justify-center w-full max-w-3xl md:h-[98%] h-[95%] md:p-4 p-3">
                     <div className="flex flex-col leading-none mb-6">
                         <h1 className="text-gray-800 dark:text-white">
